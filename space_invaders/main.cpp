@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "ship.h"
+#include "bullet.h"
 
 using namespace sf;
 using namespace std;
@@ -12,10 +13,17 @@ const int gameHeight = 600;
 Texture spritesheet;
 std::vector<Ship *> ships;
 
-void Update(float &dt) {
+void Update(float &dt, RenderWindow &window) {
 	for (auto &s : ships) {
 		s->Update(dt);
 	}
+
+	// Quit Via ESC Key
+	if (Keyboard::isKeyPressed(Keyboard::Escape)) {
+		window.close();
+	}
+
+	Bullet::Update(dt);
 }
 
 void Load() {
@@ -41,6 +49,7 @@ void Render(RenderWindow &window) {
 	for (const auto s : ships) {
 		window.draw(*s);
 	}
+	Bullet::Render(window);
 }
 
 int main() {
@@ -50,7 +59,7 @@ int main() {
 	while (window.isOpen()) {
 		float dt = clock.restart().asSeconds();
 		window.clear();
-		Update(dt);
+		Update(dt, window);
 		Render(window);
 		window.display();
 	}

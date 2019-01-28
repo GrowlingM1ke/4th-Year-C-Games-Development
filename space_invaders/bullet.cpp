@@ -3,12 +3,69 @@
 using namespace sf;
 using namespace std;
 
+
+Bullet::Bullet() : Sprite() {
+	setOrigin(16, 16);
+	setTexture(spritesheet);
+};
+
+unsigned char Bullet::bulletPointer = 0;
+Bullet Bullet::bullets[256];
+
 //Create definition for the constructor
-Bullet::Bullet(const sf::Vector2f &pos, const bool mode) {
-	_mode = mode;
-	setPosition(pos);
+void Bullet::Fire(const sf::Vector2f &pos, const bool mode) {
+	bullets[bulletPointer]._mode = mode;
+	bullets[bulletPointer].setPosition(pos);
+	bulletPointer++;
+	if (mode) {
+		bullets[bulletPointer].setTextureRect(IntRect(32, 32, 32, 32));
+	}
+	else {
+		bullets[bulletPointer].setTextureRect(IntRect(64, 32, 32, 32));
+	}
 }
 
 void Bullet::Update(const float &dt) {
-	move(0, dt * 200.0f * (_mode ? 1.0f : -1.0f));
+	for (Bullet &b : bullets)
+			b._Update(dt);
+}
+
+void Bullet::Render(sf::RenderWindow &window) {
+	for (Bullet &b : bullets)
+			window.draw(b);
+}
+
+void Bullet::_Update(const float &dt) {
+	if (getPosition().y < -32 || getPosition().y > gameHeight + 32) {
+		//off screen - do nothing
+		return;
+	}
+	else {
+		move(0, dt * 200.0f * (_mode ? 1.0f : -1.0f));
+		const FloatRect boundingBox = getGlobalBounds();
+
+		for (int i = 0; i < ships.size(); i++) {
+			if (!_mode && i == ships.size()) {
+				//player bulelts don't collide with player
+				continue;
+			}
+			if (_mode && i != ships.size()) {
+				//invader bullets don't collide with other invaders
+				continue;
+			}
+			if (!ships[i]->is_exploded() &&
+				ships[i]->getGlobalBounds().intersects(boundingBox)) {
+				//Explode the ship
+				ships[i]->Explode();
+				//warp bullet off-screen
+				setPosition(-100, -100);
+				return;
+			}
+		}
+	}
+};
+
+void Ship::Explode() {
+	setTextureRect(IntRect(128, 32, 32, 32));
+	_exploded = true;
 }
