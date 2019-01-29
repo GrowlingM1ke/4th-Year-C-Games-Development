@@ -46,6 +46,12 @@ add_custom_target(copy_resources ALL COMMAND ${CMAKE_COMMAND}
     ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$<CONFIGURATION>/res
 )
 
+add_custom_target(copy_assets ALL COMMAND ${CMAKE_COMMAND} 
+  -E copy_directory
+    "${PROJECT_SOURCE_DIR}/assets"
+    ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$<CONFIGURATION>/assets
+)
+
 #### Tile Engine ####
 file(GLOB_RECURSE SOURCES tile_engine/*.cpp tile_engine/*.h)
 add_executable(TILE_ENGINE ${SOURCES})
