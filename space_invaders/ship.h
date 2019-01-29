@@ -6,7 +6,7 @@ protected:
 	sf::IntRect _sprite;
 	Ship();
 	bool _exploded;
-	float explodeTime;
+	float _explosiontime = 0.2f;
 
 public:
 	explicit Ship(sf::IntRect ir);
@@ -14,8 +14,6 @@ public:
 	virtual void Update(const float &dt);
 	bool is_exploded() const;
 	virtual void Explode();
-	virtual float get_explodeTime() const;
-	virtual void set_explodeTime(const float &explodeTime);
 };
 
 class Invader : public Ship {

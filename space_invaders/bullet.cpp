@@ -47,11 +47,11 @@ void Bullet::_Update(const float &dt) {
 		const FloatRect boundingBox = getGlobalBounds();
 
 		for (int i = 0; i < ships.size(); i++) {
-			if (!_mode && i == ships.size()) {
+			if (!_mode && i == ships.size() - 1) {
 				//player bulelts don't collide with player
 				continue;
 			}
-			if (_mode && i != ships.size()) {
+			if (_mode && i != ships.size() - 1) {
 				//invader bullets don't collide with other invaders
 				continue;
 			}

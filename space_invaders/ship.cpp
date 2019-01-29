@@ -23,20 +23,19 @@ Ship::Ship(IntRect ir) : Sprite() {
 	float explodeTime = 0.5f;
 }
 
-void Ship::Update(const float &dt) {}
+void Ship::Update(const float &dt) {
+	if (_exploded) {
+		_explosiontime -= dt;
+	}
+	if (_explosiontime <= 0.f) {
+		setColor(Color(0, 0, 0, 0));
+	}
+}
 
 Ship::~Ship() = default;
 
 bool Ship::is_exploded() const {
 	return _exploded;
-}
-
-float Ship::get_explodeTime() const {
-	return explodeTime;
-}
-
-void Ship::set_explodeTime(float const &explodeTime) {
-	Ship::explodeTime = explodeTime;
 }
 
 Invader::Invader() : Ship() {}
@@ -67,16 +66,6 @@ void Invader::Update(const float &dt) {
 		Bullet::Fire(getPosition(), true);
 		firetime = 4.0f + (rand() % 60);
 	}
-
-	/*
-	for (auto s : ships) {
-		if (s->is_exploded()) {
-			s->set_explodeTime(s->get_explodeTime() - dt);
-			if (s->get_explodeTime() < 0.0f)
-				s->move(1000.0f, 0.0f);
-		}
-	}
-	*/
 }
 
 //ship.cpp
