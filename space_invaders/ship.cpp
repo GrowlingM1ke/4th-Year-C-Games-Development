@@ -88,7 +88,7 @@ void Player::Update(const float &dt) {
 
 	static float firetime = 0.0f;
 	firetime -= dt;
-	if (firetime <= 0 && Keyboard::isKeyPressed(controls[2])) {
+	if (firetime <= 0 && Keyboard::isKeyPressed(controls[2]) && !_exploded) {
 		Bullet::Fire(getPosition(), false);
 		firetime = 0.7f;
 	}

@@ -45,6 +45,25 @@ void Load() {
 	ships.push_back(def);
 }
 
+void ReLoad() {
+	for (auto *s : ships) {
+		delete s;
+	}
+	ships.clear();
+
+	for (int r = 0; r < 5; ++r) {
+		auto rect = IntRect(0, 0, 32, 32);
+		for (int c = 0; c < 12; ++c) {
+			Vector2f position = { 60.0f * (c + 1), 50.0f * (r + 1) };
+			auto inv = new Invader(rect, position);
+			ships.push_back(inv);
+		}
+	}
+
+	auto def = new Player();
+	ships.push_back(def);
+}
+
 void Render(RenderWindow &window) {
 	for (const auto s : ships) {
 		window.draw(*s);
@@ -58,6 +77,9 @@ int main() {
 	static sf::Clock clock;
 	while (window.isOpen()) {
 		float dt = clock.restart().asSeconds();
+		if (Keyboard::isKeyPressed(Keyboard::R)) {
+			ReLoad();
+		}
 		window.clear();
 		Update(dt, window);
 		Render(window);

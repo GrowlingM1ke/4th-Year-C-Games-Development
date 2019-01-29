@@ -6,7 +6,7 @@ protected:
 	sf::IntRect _sprite;
 	Ship();
 	bool _exploded;
-	float _explosiontime = 0.2f;
+	float _explosiontime = 0.4f;
 
 public:
 	explicit Ship(sf::IntRect ir);

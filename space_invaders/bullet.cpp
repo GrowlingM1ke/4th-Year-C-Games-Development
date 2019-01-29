@@ -16,9 +16,8 @@ Bullet Bullet::bullets[256];
 
 //Create definition for the constructor
 void Bullet::Fire(const sf::Vector2f &pos, const bool mode) {
-	bullets[bulletPointer]._mode = mode;
+	bullets[++bulletPointer]._mode = mode;
 	bullets[bulletPointer].setPosition(pos);
-	bulletPointer++;
 	if (mode) {
 		bullets[bulletPointer].setTextureRect(IntRect(32, 32, 32, 32));
 	}
