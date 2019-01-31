@@ -13,13 +13,13 @@ const Keyboard::Key controls[4] = {
 void Player::update(double dt) {
 	//Move in four directions based on keys
 	if (Keyboard::isKeyPressed(controls[0]))
-		move(Vector2f(10.0f * dt, 0.0f));
+		move(Vector2f(100.0f * dt, 0.0f));
 	if (Keyboard::isKeyPressed(controls[1]))
-		move(Vector2f(-10.0f * dt, 0.0f));
+		move(Vector2f(-100.0f * dt, 0.0f));
 	if (Keyboard::isKeyPressed(controls[2]))
-		move(Vector2f(0.0f, 10.0f * dt));
+		move(Vector2f(0.0f, 100.0f * dt));
 	if (Keyboard::isKeyPressed(controls[3]))
-		move(Vector2f(0.0f, -10.0f * dt));
+		move(Vector2f(0.0f, -100.0f * dt));
 
 	Entity::update(dt);
 }

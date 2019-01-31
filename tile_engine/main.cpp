@@ -2,6 +2,7 @@
 #include <iostream>
 #include "entity.h"
 #include "player.h"
+#include "Levelsystem.h"
 
 using namespace sf;
 using namespace std;
@@ -26,11 +27,21 @@ void Update(float &dt, RenderWindow &window) {
 }
 
 void Load() {
+	ls::loadLevelFile("assets/levels/maze_2.txt");
 	player = new Player;
 	entities.push_back(player);
+
+	for (size_t y = 0; y < ls::getHeight(); ++y) {
+		for (size_t x = 0; x < ls::getWidth(); ++x) {
+			cout << ls::getTile({ x, y });
+		}
+		cout << endl;
+	}
 }
 
 void Render(RenderWindow &window) {
+	ls::render(window);
+
 	for (auto &e : entities) {
 		e->render(window);
 	}
