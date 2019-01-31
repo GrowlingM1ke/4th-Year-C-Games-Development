@@ -6,8 +6,8 @@ using namespace std;
 const Keyboard::Key controls[4] = {
 	Keyboard::Right,
 	Keyboard::Left,
-	Keyboard::Up,
-	Keyboard::Down
+	Keyboard::Down,
+	Keyboard::Up
 };
 
 void Player::update(double dt) {
@@ -16,9 +16,9 @@ void Player::update(double dt) {
 		move(Vector2f(10.0f * dt, 0.0f));
 	if (Keyboard::isKeyPressed(controls[1]))
 		move(Vector2f(-10.0f * dt, 0.0f));
-	if (Keyboard::isKeyPressed(controls[0]))
+	if (Keyboard::isKeyPressed(controls[2]))
 		move(Vector2f(0.0f, 10.0f * dt));
-	if (Keyboard::isKeyPressed(controls[1]))
+	if (Keyboard::isKeyPressed(controls[3]))
 		move(Vector2f(0.0f, -10.0f * dt));
 
 	Entity::update(dt);
