@@ -2,6 +2,7 @@
 #include <iostream>
 #include "entity.h"
 #include "player.h"
+#include "maths.h"
 #include "Levelsystem.h"
 
 using namespace sf;

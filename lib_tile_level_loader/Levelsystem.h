@@ -21,6 +21,9 @@ public:
 	static sf::Vector2f getTilePosition(sf::Vector2ul);
 	//get the tile at screenspace pos
 	static TILE getTileAt(sf::Vector2f);
+	// get height
+	static size_t getHeight() { return _height; }
+	static size_t getWidth() { return _width; }
 
 protected:
 	static std::unique_ptr<TILE[]> _tiles; //Internal array of tiles

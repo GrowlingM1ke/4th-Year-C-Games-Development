@@ -1,4 +1,5 @@
 #pragma once
+#define _USE_MATH_DEFINES
 
 #include <SFML/System.hpp>
 #include <cmath>
@@ -10,15 +11,15 @@ namespace sf {
 	typedef Vector2<size_t> Vector2ul;
 	// Returns the length of a sf::vector
 	template <typename T> double length(const Vector2<T> &v) {
-		return sqrt(...);
+		return sqrt(v.x * v.x + v.y * v.y);
 	}
 	// return normalized sf::vector
 	template <typename T> Vector2<T> normalize(const Vector2<T> &v) {
 		Vector2<T> vector;
 		double l = length(v);
 		if (l != 0) {
-			vector.x = ...
-				vector.y = ...
+			vector.x = vector.x / l;
+			vector.y = vector.y / l;
 		}
 		return vector;
 	}
@@ -29,7 +30,7 @@ namespace sf {
 	};
 	// Degreess to radians conversion
 	static double deg2rad(double degrees) {
-		return ...
+		return degrees * M_PI / 180;
 	}
 	//Rotate a sf::vector by an angle(degrees)
 	template <typename T>
