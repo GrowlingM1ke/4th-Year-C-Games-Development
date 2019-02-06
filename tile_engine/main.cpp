@@ -30,14 +30,20 @@ void Update(float &dt, RenderWindow &window) {
 void Load() {
 	ls::loadLevelFile("assets/levels/maze_2.txt");
 	player = new Player;
-	entities.push_back(player);
+	
 
 	for (size_t y = 0; y < ls::getHeight(); ++y) {
 		for (size_t x = 0; x < ls::getWidth(); ++x) {
 			cout << ls::getTile({ x, y });
+			if (ls::getTileAt({ x, y }) == ls::START) {
+				player->InitializePosition(ls::getTilePosition({ x, y }));
+			}
+				
 		}
 		cout << endl;
 	}
+
+	entities.push_back(player);
 }
 
 void Render(RenderWindow &window) {

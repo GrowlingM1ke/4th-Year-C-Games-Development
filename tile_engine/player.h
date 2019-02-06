@@ -8,5 +8,6 @@ private:
 public:
 	void update(double dt) override;
 	Player();
+	void InitializePosition(Vector2f &pos);
 	void render(sf::RenderWindow &window) const override;
 };

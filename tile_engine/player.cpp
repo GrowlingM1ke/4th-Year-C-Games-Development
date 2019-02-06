@@ -29,6 +29,10 @@ Player::Player() : _speed(200.0f), Entity(make_unique<CircleShape>(25.f)) {
 	_shape->setOrigin(Vector2f(25.f, 25.f));
 }
 
+void Player::InitializePosition(Vector2f &pos) {
+	_shape->setPosition(pos);
+}
+
 void Player::render(sf::RenderWindow &window) const {
 	window.draw(*_shape);
 }
