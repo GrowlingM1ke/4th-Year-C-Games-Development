@@ -35,8 +35,8 @@ void Load() {
 	for (size_t y = 0; y < ls::getHeight(); ++y) {
 		for (size_t x = 0; x < ls::getWidth(); ++x) {
 			cout << ls::getTile({ x, y });
-			if (ls::getTileAt({ x, y }) == ls::START) {
-				player->InitializePosition(ls::getTilePosition({ x, y }));
+			if (ls::getTile({ x, y }) == ls::START) {
+				player->InitializePosition(ls::getTilePosition({ x , y }));
 			}
 				
 		}
