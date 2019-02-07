@@ -74,3 +74,10 @@ set_target_properties(TILE_ENGINE
     PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY
     ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$(Configuration)
 )
+
+#### PAC MAN ####
+file(GLOB_RECURSE SOURCES pac_man/*.cpp pac_man/*.h)
+add_executable(PAC_MAN ${SOURCES})
+target_include_directories(PAC_MAN PRIVATE ${SFML_INCS})
+target_link_libraries(PAC_MAN sfml-graphics lib_tile_level_loader)
+add_dependencies(PAC_MAN copy_resources)
