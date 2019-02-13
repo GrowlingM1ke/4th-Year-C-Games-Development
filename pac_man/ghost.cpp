@@ -31,6 +31,6 @@ void Ghost::InitializePosition(Vector2f &pos) {
 	setPosition(pos + Vector2f(35.0f, 35.0f));
 }
 
-void Ghost::render(sf::RenderWindow &window) const {
-	window.draw(*_shape);
+void Ghost::render() const {
+	Renderer::queue(_shape.get());
 }

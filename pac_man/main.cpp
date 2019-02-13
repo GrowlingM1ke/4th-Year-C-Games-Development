@@ -5,6 +5,7 @@
 #include "Levelsystem.h"
 #include "player.h"
 #include "ghost.h"
+#include "system_renderer.h"
 
 using namespace sf;
 using namespace std;
@@ -28,7 +29,7 @@ void Update(float &dt, RenderWindow &window) {
 	em.update(dt);
 }
 
-void Load() {
+void Load(RenderWindow &window) {
 	player = std::make_shared<Player>();
 	ghost = std::make_shared<Ghost>();
 	ghost2 = std::make_shared<Ghost>();
@@ -36,21 +37,24 @@ void Load() {
 	em.list.push_back(player);
 	em.list.push_back(ghost);
 	em.list.push_back(ghost2);
+	Renderer::initialise(window);
+	em.render();
 }
 
-void Render(RenderWindow &window) {
-	em.render(window);
+void Render() {
+	em.render();
+	Renderer::render();
 }
 
 int main() {
 	RenderWindow window(VideoMode(gameWidth, gameHeight), "PAC MAN");
-	Load();
+	Load(window);
 	static sf::Clock clock;
 	while (window.isOpen()) {
 		float dt = clock.restart().asSeconds();
 		window.clear();
 		Update(dt, window);
-		Render(window);
+		Render();
 		window.display();
 	}
 	return 0;

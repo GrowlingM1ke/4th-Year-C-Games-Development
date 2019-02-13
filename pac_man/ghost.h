@@ -11,5 +11,5 @@ public:
 	void update(double dt) override;
 	Ghost();
 	void InitializePosition(sf::Vector2f &pos);
-	void render(sf::RenderWindow &window) const override;
+	void render() const override;
 };

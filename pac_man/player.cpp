@@ -33,6 +33,6 @@ void Player::InitializePosition(Vector2f &pos) {
 	setPosition(pos + Vector2f(35.0f, 35.0f));
 }
 
-void Player::render(sf::RenderWindow &window) const {
-	window.draw(*_shape);
+void Player::render() const {
+	Renderer::queue(_shape.get());
 }

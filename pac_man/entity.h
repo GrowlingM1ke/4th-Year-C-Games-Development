@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <memory>
+#include "system_renderer.h"
 
 class Entity {
 protected:
@@ -17,7 +18,7 @@ public:
 	// const means that I can't change any other variable or function within this class
 	// I can't call any other functions that aren't const
 	// if it's = 0 then it's purely virtually and a Entity class can't instantiate this function
-	virtual void render(sf::RenderWindow &window) const = 0;
+	virtual void render() const = 0;
 
 	const sf::Vector2f getPosition();
 	// I'm not going to change the pos a.k.a the variable being passed thorugh because of const
@@ -28,5 +29,5 @@ public:
 struct EntityManager {
 	std::vector<std::shared_ptr<Entity>> list;
 	void update(const float dt);
-	void render(sf::RenderWindow &window);
+	void render();
 };

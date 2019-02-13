@@ -20,8 +20,8 @@ void EntityManager::update(const float dt) {
 	}
 }
 
-void EntityManager::render(RenderWindow &window) {
-	for (auto &e : list) {
-		e->render(window);
+void EntityManager::render() {
+	for (auto& e : list) {
+			e->render();
 	}
 }
