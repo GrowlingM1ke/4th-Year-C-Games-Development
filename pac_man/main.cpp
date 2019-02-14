@@ -15,8 +15,8 @@ std::shared_ptr<Scene> gameScene;
 std::shared_ptr<Scene> menuScene;
 std::shared_ptr<Scene> activeScene;
 
-const int gameWidth = 800;
-const int gameHeight = 600;
+const int gameWidth = 700;
+const int gameHeight = 800;
 
 void Update(float &dt, RenderWindow &window) {
 
@@ -46,6 +46,7 @@ int main() {
 	RenderWindow window(VideoMode(gameWidth, gameHeight), "PAC MAN");
 	Load(window);
 	static sf::Clock clock;
+	Renderer::initialise(window);
 	while (window.isOpen()) {
 		float dt = clock.restart().asSeconds();
 		window.clear();

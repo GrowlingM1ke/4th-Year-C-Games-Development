@@ -28,7 +28,7 @@ void Update(float &dt, RenderWindow &window) {
 }
 
 void Load() {
-	ls::loadLevelFile("assets/levels/maze_2.txt");
+	ls::loadLevelFile("assets/levels/maze_2.txt", 25.0f);
 	player = new Player;
 	
 
