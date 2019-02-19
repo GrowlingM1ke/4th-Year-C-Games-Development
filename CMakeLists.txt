@@ -79,10 +79,15 @@ set_target_properties(TILE_ENGINE
 file(GLOB_RECURSE SOURCES pac_man/*.cpp pac_man/*.h)
 add_executable(PAC_MAN ${SOURCES})
 target_include_directories(PAC_MAN PRIVATE ${SFML_INCS})
-target_link_libraries(PAC_MAN sfml-graphics lib_tile_level_loader)
+target_link_libraries(PAC_MAN sfml-graphics lib_tile_level_loader lib_ecm)
 add_dependencies(PAC_MAN copy_resources)
 
 set_target_properties(PAC_MAN
     PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY
     ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$(Configuration)
 )
+
+file(GLOB_RECURSE SOURCE_FILES lib_ecm/*.cpp engine/lib_ecm/*.h)
+add_library(lib_ecm STATIC ${SOURCE_FILES})
+target_include_directories(lib_ecm INTERFACE "${CMAKE_SOURCE_DIR}/lib_ecm" )
+target_link_libraries(lib_ecm PRIVATE lib_maths)

@@ -1,4 +1,5 @@
 #include "entity.h"
+//#include "Levelsystem.h"
 using namespace std;
 using namespace sf;
 
@@ -11,6 +12,12 @@ void Entity::move(const Vector2f &pos) { _position += pos; }
 void Entity::update(const double dt) {
 	_shape->setPosition(_position);
 }
+
+/*
+bool Entity::validmove(sf::Vector2f &pos) const {
+	return (ls::getTileAt(pos) != ls::WALL);
+}
+*/
 
 Entity::Entity(unique_ptr<Shape> s) : _shape(std::move(s)) {}
 

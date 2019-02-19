@@ -2,7 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <memory>
-#include "system_renderer.h"
+//#include "system_renderer.h"
 
 class Entity {
 protected:
@@ -15,6 +15,7 @@ public:
 	virtual ~Entity() = default;
 
 	virtual void update(const double dt) ;
+	//bool validmove(sf::Vector2f &pos) const;
 	// const means that I can't change any other variable or function within this class
 	// I can't call any other functions that aren't const
 	// if it's = 0 then it's purely virtually and a Entity class can't instantiate this function

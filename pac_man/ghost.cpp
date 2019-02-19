@@ -1,4 +1,6 @@
 #include "ghost.h"
+#include "system_renderer.h"
+
 using namespace sf;
 using namespace std;
 
@@ -22,7 +24,7 @@ void Ghost::update(double dt) {
 	Entity::update(dt);
 }
 
-Ghost::Ghost() : _speed(100.0f), Entity(make_unique<CircleShape>(25.f)), _time(0.0f) {
+Ghost::Ghost() : _speed(100.0f), Entity(make_unique<CircleShape>(10.f)), _time(0.0f) {
 	_shape->setFillColor(Color::Blue);
 	_shape->setOrigin(Vector2f(25.f, 60.0f));
 }

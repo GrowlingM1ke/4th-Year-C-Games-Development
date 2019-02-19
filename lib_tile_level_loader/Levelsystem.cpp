@@ -126,3 +126,16 @@ void LevelSystem::render(RenderWindow &window) {
 		window.draw(*_sprites[i]);
 	}
 }
+
+std::vector<sf::Vector2ul> LevelSystem::findTiles(LevelSystem::TILE tile) {
+	std::vector<sf::Vector2ul> ret;
+	for (int i = 0; i < _width * _height; i++) {
+		if (_tiles[i] == tile) {
+			ret.push_back(Vector2ul(i % _width, i / _width));
+		}
+	}
+	if (ret.size() == 0) {
+		throw string("No tiles found.");
+	}
+	return ret;
+}

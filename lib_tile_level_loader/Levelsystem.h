@@ -14,6 +14,7 @@ public:
 
 	static void loadLevelFile(const std::string&, float tileSize = 100.f);
 	static void render(sf::RenderWindow &window);
+	static std::vector<sf::Vector2ul> findTiles(LevelSystem::TILE tile);
 	static sf::Color getColor(TILE t);
 	static void setColor(TILE t, sf::Color c);
 	//Get Tile at grid coordinate
