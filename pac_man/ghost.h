@@ -1,5 +1,5 @@
 #pragma once
-#include "entity.h"
+#include "ecm.h"
 
 class Ghost : public Entity {
 private:
@@ -11,5 +11,5 @@ public:
 	void update(double dt) override;
 	Ghost();
 	void InitializePosition(sf::Vector2f &pos);
-	void render() const override;
+	//void render() const override;
 };

@@ -26,6 +26,7 @@ void Player::update(double dt) {
 	Entity::update(dt);
 }
 
+/*
 Player::Player() : _speed(300.0f), Entity(make_unique<CircleShape>(14.f)) {
 	_shape->setFillColor(Color::Yellow);
 	_shape->setOrigin(Vector2f(20.0f, 20.0f));
@@ -38,3 +39,4 @@ void Player::InitializePosition(Vector2f &pos) {
 void Player::render() const {
 	Renderer::queue(_shape.get());
 }
+*/

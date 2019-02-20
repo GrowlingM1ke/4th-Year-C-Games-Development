@@ -1,5 +1,5 @@
 #pragma once
-#include "entity.h"
+#include "ecm.h"
 #include "Levelsystem.h"
 
 class Player : public Entity {
@@ -10,5 +10,5 @@ public:
 	void update(double dt) override;
 	Player();
 	void InitializePosition(sf::Vector2f &pos);
-	void render() const override;
+	//void render() const override;
 };

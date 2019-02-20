@@ -1,6 +1,6 @@
 #include <vector>
 #include <memory>
-#include "entity.h"
+#include "ecm.h"
 
 class Scene {
 public:

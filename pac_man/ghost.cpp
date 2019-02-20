@@ -24,6 +24,15 @@ void Ghost::update(double dt) {
 	Entity::update(dt);
 }
 
+Ghost::Ghost()
+{
+}
+
+void Ghost::InitializePosition(sf::Vector2f & pos)
+{
+}
+
+/*
 Ghost::Ghost() : _speed(100.0f), Entity(make_unique<CircleShape>(10.f)), _time(0.0f) {
 	_shape->setFillColor(Color::Blue);
 	_shape->setOrigin(Vector2f(25.f, 60.0f));
@@ -36,3 +45,4 @@ void Ghost::InitializePosition(Vector2f &pos) {
 void Ghost::render() const {
 	Renderer::queue(_shape.get());
 }
+*/

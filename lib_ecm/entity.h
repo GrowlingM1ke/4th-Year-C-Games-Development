@@ -1,3 +1,4 @@
+/*
 #pragma once
 
 #include <SFML/Graphics.hpp>
@@ -32,3 +33,4 @@ struct EntityManager {
 	void update(const float dt);
 	void render();
 };
+*/

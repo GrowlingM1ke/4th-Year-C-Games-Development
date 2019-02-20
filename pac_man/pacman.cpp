@@ -1,8 +1,5 @@
 #include "pacman.h"
-#include <sstream>
-#include "player.h"
-#include "ghost.h"
-#include "system_renderer.h"
+#define GHOSTS_COUNT 4
 
 using namespace sf;
 using namespace std;
@@ -50,20 +47,28 @@ void GameScene::render() {
 
 void GameScene::load() {
 
-	std::shared_ptr<Player> player = std::make_shared<Player>();
-	ls::loadLevelFile("assets/levels/pacman.txt", 25.0f);
-	player->setPosition(ls::getTilePosition(ls::findTiles(ls::START)[0]));
+	{
+		auto pl = make_shared<Entity>();
 
+		auto s = pl->addComponent<ShapeComponent>();
+		s->setShape<sf::CircleShape>(12.f);
+		s->getShape().setFillColor(Color::Yellow);
+		s->getShape().setOrigin(Vector2f(12.f, 12.f));
 
-	_ents.list.push_back(player);
+		_ents.list.push_back(pl);
+	}
 
-	std::vector<sf::Vector2ul> ghostPositions = ls::findTiles(ls::EMPTY);
+	const sf::Color ghost_cols[]{ { 208, 62, 25 },    // red Blinky
+	{ 219, 133, 28 },   // orange Clyde
+	{ 70, 191, 238 },   // cyan Inky
+	{ 234, 130, 229 } }; // pink Pinky
 
-	for (int i = 0; i < 4; i++) {
-		std::shared_ptr<Ghost> ghost = std::make_shared<Ghost>();
-		int randNum = rand() % (ghostPositions.size() + 1);
-		ghost->setPosition(ls::getTilePosition(ghostPositions[randNum]));
-
+	for (int i = 0; i < GHOSTS_COUNT; ++i) {
+		auto ghost = make_shared<Entity>();
+		auto s = ghost->addComponent<ShapeComponent>();
+		s->setShape<sf::CircleShape>(12.f);
+		s->getShape().setFillColor(ghost_cols[i % 4]);
+		s->getShape().setOrigin(Vector2f(12.f, 12.f));
 
 		_ents.list.push_back(ghost);
 	}
