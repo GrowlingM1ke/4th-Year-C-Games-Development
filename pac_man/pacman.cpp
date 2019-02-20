@@ -47,6 +47,8 @@ void GameScene::render() {
 
 void GameScene::load() {
 
+	ls::loadLevelFile("assets/levels/pacman.txt", 25.0f);
+
 	{
 		auto pl = make_shared<Entity>();
 
