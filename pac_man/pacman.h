@@ -1,6 +1,4 @@
 #include <memory>
-#include "player.h"
-#include "ghost.h"
 #include "system_renderer.h"
 #include "scene.h"
 #include "ecm.h"

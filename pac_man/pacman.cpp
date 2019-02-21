@@ -6,6 +6,10 @@
 using namespace sf;
 using namespace std;
 
+vector<shared_ptr<Entity>> ghosts;
+shared_ptr<Entity> player;
+std::vector<sf::Vector2ul> ghostPositions;
+
 MenuScene::MenuScene()
 {
 }
@@ -31,12 +35,20 @@ void MenuScene::load() {
 
 void GameScene::respawn()
 {
-
+	player->setPosition(ls::getTilePosition(ls::findTiles(ls::START)[0]));
+	for (int i = 0; i < GHOSTS_COUNT; ++i) {
+		ghosts[i]->setPosition(ls::getTilePosition(ghostPositions[i]));
+	}
 }
 
 void GameScene::update(double dt) {
 	if (Keyboard::isKeyPressed(Keyboard::Tab)) {
 		activeScene = menuScene;
+	}
+
+	for (auto g : ghosts) {
+		if (length(player->getPosition() - g->getPosition()) < 25.0f)
+			respawn();
 	}
 
 	Scene::update(dt);
@@ -50,6 +62,7 @@ void GameScene::render() {
 void GameScene::load() {
 
 	ls::loadLevelFile("assets/levels/pacman.txt", 25.0f);
+	ghostPositions = ls::findTiles(ls::ENEMY);
 
 	{
 		auto pl = make_shared<Entity>();
@@ -59,10 +72,10 @@ void GameScene::load() {
 		s->setShape<sf::CircleShape>(12.f);
 		s->getShape().setFillColor(Color::Yellow);
 		s->getShape().setOrigin(Vector2f(12.f, 12.f));
-		pl->setPosition({ 200.0f, 200.0f });
 		pl->setPosition(ls::getTilePosition(ls::findTiles(ls::START)[0]));
 
 		_ents.list.push_back(pl);
+		player = pl;
 	}
 
 	const sf::Color ghost_cols[]{ { 208, 62, 25 },    // red Blinky
@@ -70,7 +83,6 @@ void GameScene::load() {
 	{ 70, 191, 238 },   // cyan Inky
 	{ 234, 130, 229 } }; // pink Pinky
 
-	std::vector<sf::Vector2ul> ghostPositions = ls::findTiles(ls::ENEMY);
 
 	for (int i = 0; i < GHOSTS_COUNT; ++i) {
 		auto ghost = make_shared<Entity>();
@@ -82,5 +94,6 @@ void GameScene::load() {
 		s->getShape().setOrigin(Vector2f(12.f, 12.f));
 
 		_ents.list.push_back(ghost);
+		ghosts.push_back(ghost);
 	}
 }

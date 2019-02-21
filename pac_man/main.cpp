@@ -3,8 +3,6 @@
 #include "entity.h"
 #include "maths.h"
 #include "Levelsystem.h"
-#include "player.h"
-#include "ghost.h"
 #include "system_renderer.h"
 #include "pacman.h"
 
