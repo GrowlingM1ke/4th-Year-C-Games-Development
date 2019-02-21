@@ -1,5 +1,5 @@
 #include "cmp_actor_movement.h"
-#include <LevelSystem.h>
+
 
 using namespace sf;
 
@@ -14,7 +14,7 @@ bool ActorMovementComponent::validMove(const sf::Vector2f& pos) {
 void ActorMovementComponent::move(const sf::Vector2f& p) {
 	auto pp = _parent->getPosition() + p;
 	if (validMove(pp)) {
-		move(p);
+		_parent->setPosition(_parent->getPosition() + p);
 	}
 }
 

@@ -1,5 +1,6 @@
 #pragma once
 #include <ecm.h>
+#include <LevelSystem.h>
 
 class ActorMovementComponent : public Component {
 protected:

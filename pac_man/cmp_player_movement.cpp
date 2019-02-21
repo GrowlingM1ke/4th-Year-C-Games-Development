@@ -12,6 +12,9 @@ const Keyboard::Key controls[4] = {
 	Keyboard::Up
 };
 
+PlayerMovementComponent::PlayerMovementComponent(Entity * p) : ActorMovementComponent(p) {}
+
+
 void PlayerMovementComponent::update(double dt) {
 
 	//Move in four directions based on keys

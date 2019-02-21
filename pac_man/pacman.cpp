@@ -1,4 +1,6 @@
 #include "pacman.h"
+#include "cmp_player_movement.h"
+#include "cmp_ghost_movement.h"
 #define GHOSTS_COUNT 4
 
 using namespace sf;
@@ -53,9 +55,12 @@ void GameScene::load() {
 		auto pl = make_shared<Entity>();
 
 		auto s = pl->addComponent<ShapeComponent>();
+		pl->addComponent<PlayerMovementComponent>();
 		s->setShape<sf::CircleShape>(12.f);
 		s->getShape().setFillColor(Color::Yellow);
 		s->getShape().setOrigin(Vector2f(12.f, 12.f));
+		pl->setPosition({ 200.0f, 200.0f });
+		pl->setPosition(ls::getTilePosition(ls::findTiles(ls::START)[0]));
 
 		_ents.list.push_back(pl);
 	}
@@ -65,9 +70,13 @@ void GameScene::load() {
 	{ 70, 191, 238 },   // cyan Inky
 	{ 234, 130, 229 } }; // pink Pinky
 
+	std::vector<sf::Vector2ul> ghostPositions = ls::findTiles(ls::ENEMY);
+
 	for (int i = 0; i < GHOSTS_COUNT; ++i) {
 		auto ghost = make_shared<Entity>();
+		ghost->setPosition(ls::getTilePosition(ghostPositions[i]));
 		auto s = ghost->addComponent<ShapeComponent>();
+		ghost->addComponent<GhostMovementComponent>();
 		s->setShape<sf::CircleShape>(12.f);
 		s->getShape().setFillColor(ghost_cols[i % 4]);
 		s->getShape().setOrigin(Vector2f(12.f, 12.f));

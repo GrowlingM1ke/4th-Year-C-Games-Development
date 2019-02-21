@@ -6,11 +6,14 @@ Entity::Entity()
 
 void Entity::render()
 {
+	for (auto &e : _components) {
+		e->render();
+	}
 }
 
 const sf::Vector2f & Entity::getPosition() const
 {
-	return sf::Vector2f(0.0f, 0.0f);
+	return _position;
 }
 
 bool Entity::is_fordeletion() const
@@ -76,5 +79,7 @@ void EntityManager::update(const float dt) {
 }
 
 void Entity::update(const double dt) {
-	// TODO
+	for (auto &e : _components) {
+		e->update(dt);
+	}
 }

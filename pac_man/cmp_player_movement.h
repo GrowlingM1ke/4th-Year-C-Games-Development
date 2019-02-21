@@ -5,5 +5,7 @@
 
 class PlayerMovementComponent : public ActorMovementComponent {
 public:
+	explicit PlayerMovementComponent(Entity* p);
+	PlayerMovementComponent() = delete;
 	void update(double dt) override;
 };

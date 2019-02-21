@@ -1,21 +1,14 @@
 #pragma once
 #include <ecm.h>
+#include "cmp_actor_movement.h"
+#include <SFML/Graphics.hpp>
 
-class ActorMovementComponent : public Component {
-protected:
-	bool validMove(const sf::Vector2f&);
-	float _speed;
-
+class GhostMovementComponent : public ActorMovementComponent {
+private:
+	float _time;
+	float value;
 public:
-	explicit ActorMovementComponent(Entity* p);
-	ActorMovementComponent() = delete;
-
-	float getSpeed() const;
-	void setSpeed(float _speed);
-
-	void move(const sf::Vector2f&);
-	void move(float x, float y);
-
-	void render() override {}
 	void update(double dt) override;
+	explicit GhostMovementComponent(Entity * p);
+	GhostMovementComponent() = delete;
 };

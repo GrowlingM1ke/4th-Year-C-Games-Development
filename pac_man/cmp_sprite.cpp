@@ -3,7 +3,7 @@
 using namespace std;
 
 void ShapeComponent::update(double dt) {
-	_shape->setPosition(_parent->getPosition());
+	_shape->setPosition(_parent->getPosition() - sf::Vector2f(0.0f, 30.0f));
 }
 
 void ShapeComponent::render() { Renderer::queue(_shape.get()); }

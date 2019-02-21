@@ -1,3 +1,4 @@
+/*
 #include "entity.h"
 using namespace std;
 using namespace sf;
@@ -13,3 +14,4 @@ void Entity::update(const double dt) {
 }
 
 Entity::Entity(unique_ptr<Shape> s) : _shape(std::move(s)) {}
+*/

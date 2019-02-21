@@ -20,6 +20,16 @@ const int gameHeight = 800;
 
 void Update(float &dt, RenderWindow &window) {
 
+	
+	// check and consume events
+	Event event;
+	while (window.pollEvent(event)) {
+		if (event.type == Event::Closed) {
+			window.close();
+			return;
+		}
+	}
+
 	// Quit Via ESC Key
 	if (Keyboard::isKeyPressed(Keyboard::Escape)) {
 		window.close();

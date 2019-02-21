@@ -1,26 +1,26 @@
-#include "cmp_actor_movement.h"
-#include <LevelSystem.h>
+#include "cmp_ghost_movement.h"
+#include <SFML/Graphics.hpp>
 
 using namespace sf;
 
-void ActorMovementComponent::update(double dt) {}
 
-ActorMovementComponent::ActorMovementComponent(Entity* p)
-	: _speed(100.0f), Component(p) {}
+GhostMovementComponent::GhostMovementComponent(Entity * p) : ActorMovementComponent(p) {}
 
-bool ActorMovementComponent::validMove(const sf::Vector2f& pos) {
-	return (LevelSystem::getTileAt(pos) != LevelSystem::WALL);
-}
-
-void ActorMovementComponent::move(const sf::Vector2f& p) {
-	auto pp = _parent->getPosition() + p;
-	if (validMove(pp)) {
-		...
+void GhostMovementComponent::update(double dt)
+{
+	_time += dt;
+	if (_time > 2.0f) {
+		value = ((double)rand() / (RAND_MAX));
+		_time = 0;
 	}
-}
 
-void ActorMovementComponent::move(float x, float y) {
-	move(Vector2f(x, y));
+	if (value < 0.25f)
+		move(Vector2f(_speed * dt, 0.0f));
+	else if (value < 0.5f)
+		move(Vector2f(-_speed * dt, 0.0f));
+	else if (value < 0.75f)
+		move(Vector2f(0.0f, _speed * dt));
+	else if (value < 1.0f)
+		move(Vector2f(0.0f, -_speed * dt));
+
 }
-float ActorMovementComponent::getSpeed() const { ... }
-void ActorMovementComponent::setSpeed(float speed) { ... }
