@@ -1,6 +1,5 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include "entity.h"
 #include "maths.h"
 #include "Levelsystem.h"
 #include "system_renderer.h"
@@ -15,12 +14,12 @@ std::shared_ptr<Scene> activeScene;
 
 const int gameWidth = 700;
 const int gameHeight = 800;
+Event event;
 
 void Update(float &dt, RenderWindow &window) {
 
 	
 	// check and consume events
-	Event event;
 	while (window.pollEvent(event)) {
 		if (event.type == Event::Closed) {
 			window.close();

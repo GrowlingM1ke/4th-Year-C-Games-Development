@@ -1,6 +1,7 @@
 #include "pacman.h"
 #include "cmp_player_movement.h"
 #include "cmp_ghost_movement.h"
+#include "cmp_ghost_ai.h"
 #define GHOSTS_COUNT 4
 
 using namespace sf;
@@ -8,7 +9,6 @@ using namespace std;
 
 vector<shared_ptr<Entity>> ghosts;
 shared_ptr<Entity> player;
-std::vector<sf::Vector2ul> ghostPositions;
 
 MenuScene::MenuScene()
 {
@@ -36,8 +36,12 @@ void MenuScene::load() {
 void GameScene::respawn()
 {
 	player->setPosition(ls::getTilePosition(ls::findTiles(ls::START)[0]));
+	player->GetCompatibleComponent<ActorMovementComponent>()[0]->setSpeed(150.f);
+
+	auto ghost_spawns = ls::findTiles(ls::ENEMY);
 	for (int i = 0; i < GHOSTS_COUNT; ++i) {
-		ghosts[i]->setPosition(ls::getTilePosition(ghostPositions[i]));
+		ghosts[i]->setPosition(ls::getTilePosition(ghost_spawns[rand() % ghost_spawns.size()]));
+		ghosts[i]->GetCompatibleComponent<ActorMovementComponent>()[0]->setSpeed(100.0f);
 	}
 }
 
@@ -62,7 +66,6 @@ void GameScene::render() {
 void GameScene::load() {
 
 	ls::loadLevelFile("assets/levels/pacman.txt", 25.0f);
-	ghostPositions = ls::findTiles(ls::ENEMY);
 
 	{
 		auto pl = make_shared<Entity>();
@@ -72,7 +75,6 @@ void GameScene::load() {
 		s->setShape<sf::CircleShape>(12.f);
 		s->getShape().setFillColor(Color::Yellow);
 		s->getShape().setOrigin(Vector2f(12.f, 12.f));
-		pl->setPosition(ls::getTilePosition(ls::findTiles(ls::START)[0]));
 
 		_ents.list.push_back(pl);
 		player = pl;
@@ -86,9 +88,8 @@ void GameScene::load() {
 
 	for (int i = 0; i < GHOSTS_COUNT; ++i) {
 		auto ghost = make_shared<Entity>();
-		ghost->setPosition(ls::getTilePosition(ghostPositions[i]));
 		auto s = ghost->addComponent<ShapeComponent>();
-		ghost->addComponent<GhostMovementComponent>();
+		ghost->addComponent<GhostAIComponent>();
 		s->setShape<sf::CircleShape>(12.f);
 		s->getShape().setFillColor(ghost_cols[i % 4]);
 		s->getShape().setOrigin(Vector2f(12.f, 12.f));
@@ -96,4 +97,6 @@ void GameScene::load() {
 		_ents.list.push_back(ghost);
 		ghosts.push_back(ghost);
 	}
+
+	respawn();
 }
