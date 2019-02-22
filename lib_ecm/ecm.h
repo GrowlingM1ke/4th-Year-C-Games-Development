@@ -5,7 +5,7 @@
 #include <typeindex>
 #include <vector>
 
-class Component; //forward declare
+class Component;
 
 class Entity {
 
@@ -18,7 +18,7 @@ protected:
 	bool _fordeletion; // should be deleted
 public:
 	Entity();
-	virtual ~Entity() = default;
+	virtual ~Entity();
 	virtual void update(double dt);
 	virtual void render();
 

@@ -2,6 +2,7 @@
 #include "cmp_player_movement.h"
 #include "cmp_ghost_movement.h"
 #include "cmp_ghost_ai.h"
+#include "cmp_pickup.h"
 #define GHOSTS_COUNT 4
 
 using namespace sf;
@@ -9,6 +10,25 @@ using namespace std;
 
 vector<shared_ptr<Entity>> ghosts;
 shared_ptr<Entity> player;
+vector<shared_ptr<Entity>> nibbles;
+
+shared_ptr<Entity> makeNibble(const Vector2ul& nl, bool big) {
+	auto cherry = make_shared<Entity>();
+	auto s = cherry->addComponent<ShapeComponent>();
+	//set colour
+	if (!big) {
+		s->setShape<sf::CircleShape>(2.f);
+		s->getShape().setFillColor(Color::White);
+	}
+	else {
+		s->setShape<sf::CircleShape>(4.f);
+		s->getShape().setFillColor(Color::Blue);
+	}
+
+	cherry->addComponent<PickupComponent>(big);
+	cherry->setPosition(ls::getTilePosition(nl) + Vector2f(10.f, 35.f));
+	return cherry;
+}
 
 MenuScene::MenuScene()
 {
@@ -35,6 +55,28 @@ void MenuScene::load() {
 
 void GameScene::respawn()
 {
+	for (auto n : nibbles) {
+		n->setForDelete();
+		n.reset();
+	}
+	nibbles.clear();
+
+	//white nibbles
+	auto nibbleLoc = LevelSystem::findTiles(LevelSystem::EMPTY);
+	for (const auto& nl : nibbleLoc) {
+		auto cherry = makeNibble(nl, false);
+		//add to _wnts and nibbles list
+		_ents.list.push_back(cherry);
+		nibbles.push_back(cherry);
+	}
+	//blue nibbles
+	nibbleLoc = LevelSystem::findTiles(LevelSystem::WAYPOINT);
+	for (const auto& nl : nibbleLoc) {
+		auto cherry = makeNibble(nl, true);
+		_ents.list.push_back(cherry);
+		nibbles.push_back(cherry);
+	}
+
 	player->setPosition(ls::getTilePosition(ls::findTiles(ls::START)[0]));
 	player->GetCompatibleComponent<ActorMovementComponent>()[0]->setSpeed(150.f);
 
@@ -48,6 +90,10 @@ void GameScene::respawn()
 void GameScene::update(double dt) {
 	if (Keyboard::isKeyPressed(Keyboard::Tab)) {
 		activeScene = menuScene;
+	}
+
+	if (Keyboard::isKeyPressed(Keyboard::R)) {
+		respawn();
 	}
 
 	for (auto g : ghosts) {
